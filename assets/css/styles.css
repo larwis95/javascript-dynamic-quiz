@@ -38,6 +38,7 @@ ol {
     position: absolute;
     flex-direction: column;
     top: 30%;
+    list-style-type: decimal;
 }
 
 li {
@@ -54,7 +55,13 @@ button {
     top: 50%;
     height: 43px;
     width: 300px;
+    margin: 5px;
 
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: #4d4d4d;
 }
 
 h1::after {
@@ -74,7 +81,10 @@ h1::after {
     width: 700px;
     height: 700px;
     display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 
 }
 
@@ -94,6 +104,9 @@ h1::after {
 }
 
 .quizcontainer input {
+    bottom: 20px;
+    left: 239px;
+    position: relative;
     display: flex;
     height: 30px;
     width: 30px;
@@ -104,13 +117,14 @@ h1::after {
 }
 
 #initialsh2 {
+    bottom: 15px;
+    left: 232px;
     display: flex;
-    position: absolute;
-    right: 110%;
-    top: 20%;
+    position: relative;
 }
 
 #play {
+    left: 270px;
     display: flex;
     position: absolute;
     color: white;
@@ -119,13 +133,16 @@ h1::after {
     border-radius: 20%;
     text-align: center;
     font-weight: bold;
-    line-height:1em;
-    top: 120%;
-    right: -100%;
+    line-height: 1em;
     font-size: 30px;
     padding: 5px;
-    height: auto;
     width: auto;
+}
+
+
+#play:hover {
+    cursor: pointer;
+    background-color: #4d4d4d;
 }
 
 #questiontext {
@@ -135,19 +152,31 @@ h1::after {
 }
 
 #timerh2 {
+    bottom: 300px;
+    position: relative;
+    font-size: 35px
+}
+
+#outcome {
     position: absolute;
-    font-size: 40px;
+    top: 20%;
+}
+
+#playagain {
+    position: relative;
+    top: 100px;
+
+}
+
+#clear {
+    position: relative;
+    top: 100px;
 }
 
 footer {
     display: flex;
     margin-top: 20px;
     justify-content: center;
-}
-
-#outcome {
-    position: absolute;
-    top: 20%;
 }
 
 @keyframes blink-cursor {

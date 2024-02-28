@@ -13,20 +13,18 @@ let hsLength = 5;
 
 const questionsDB = [["What scope do variables have in javascript?", "global, block", "local, block", "global, local", "all scopes"], ["What does a loop do?", "Selects all variables.", "Loops through an arrau", "Causes an infinite loop error", "Executes code multiple times"], ["What event handler handles when a button is clicked?", "submit", "click", "keydown", "change"], ["Local storage values are always stored as a(n) ___", "string", "variable", "integer", "boolean"], ["console.log will:", "log errors in your code.", "print something to the console", "tell the console to logout", "log all variables to console"]];
 
-let questionAmount = questionsDB.length
+let questionAmount = questionsDB.length;
 
 const correctDB = ["global, local", "Executes code multiple times", "click", "string", "print something to the console"];
 
 function init() {
     let storedScores = JSON.parse(localStorage.getItem("scores"))
-    if (storedScores !== null) {
+    if (storedScores !== null) 
         scores = storedScores;
     };
-}
 
 function startQuiz() {
     if (initialsText.value === "") {
-        console.log(initialsText.value)
         alert("You must enter your initials in first! (2 characters minimum)");
         return;
     };
@@ -98,7 +96,7 @@ function saveHighScore() {
         playAgainBtn.innerHTML = "Play Again";
         saveBtn.addEventListener("click", function() {
             localStorage.setItem("scores", JSON.stringify(scores));
-            renderScores(saveBtn, saveText);
+            renderScores(saveBtn, playAgainBtn, saveText);
         });
         playAgainBtn.addEventListener("click", function() {
             location.reload();
@@ -107,23 +105,25 @@ function saveHighScore() {
     };
 };
 
-function renderScores(btn, text) {
+function renderScores(btn, play, text) {
     btn.remove();
     text.remove();
     let scoreUL = document.createElement("ol");
-    quizContainer.appendChild(scoreUL);
     let clearBtn = document.createElement("button");
-    clearBtn.textContent = "Clear Scores"
+    quizContainer.appendChild(scoreUL);
+    play.setAttribute("id", "playagain");
+    clearBtn.textContent = "Clear Scores";
+    clearBtn.setAttribute("id", "clear");
     quizContainer.appendChild(clearBtn);
     scores = scores.sort((a, b) => b.time - a.time);
-    console.log(scores);
-    for (let i = 0; i < hsLength; i++) {
-        var name = scores[i].name;
-        console.log(name);
-        var score = scores[i].time;
-        var li = document.createElement("li");
-        li.textContent = "Intials: " + name + " Score: " + score;
-        scoreUL.appendChild(li)
+    for (let i = 0; i < scores.length; i++) {
+        if (i < hsLength) {
+            let initials = scores[i].name;
+            let score = scores[i].time;
+            let li = document.createElement("li");
+            li.textContent = "Intials: " + initials + " Score: " + score;
+            scoreUL.appendChild(li);
+        };
     };
     clearBtn.addEventListener("click", clearScores);
 };
@@ -167,8 +167,6 @@ function selectQuestion() {
         saveHighScore();
         return;
     };
-    console.log(questionsDB.length)
-    console.log(timer)
     let questionArray = questionsDB[Math.floor(Math.random() * questionsDB.length)];
     let questionsRemove = questionsDB.indexOf(questionArray)
     let questionText = questionArray[0];
@@ -180,7 +178,6 @@ function selectQuestion() {
     quizContainer.appendChild(answerList);
     answerList.appendChild
     questionH2.textContent = questionText;
-    console.log(questionArray);
     for (let i = 0; i < questionArray.length; i++) {
         let li = document.createElement("li");
         let answers = document.createElement("button");
@@ -201,7 +198,7 @@ function buttonHandler(){
 };
 
 function validateAnswers(event) {
-    let button = event.target
+    let button = event.target;
     if (correctDB.includes(button.innerHTML) === true) {
         let correctText = document.createElement("h2");
         quizContainer.appendChild(correctText);
@@ -226,7 +223,7 @@ function validateAnswers(event) {
 
 function deleteOutcomeText() {
     let timeDelete = 1
-    let outcomeText = document.querySelector("#outcome")
+    let outcomeText = document.querySelector("#outcome");
     let timerInterval = setInterval(function() {
         timeDelete--;
         if (timeDelete === 0) {

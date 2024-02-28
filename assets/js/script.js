@@ -7,7 +7,7 @@ let timer = 100; //starting time for timer
 let finalTime; //our time we finish the quiz with
 let correctCount = 0; //amount of questions we got correct
 let incorrectCount = 0; //amount of questions we got incorrect
-let scores = []; //array to hold on scores from local storage
+let scores = []; //array to hold scores from local storage
 let endGame = false; //flag set to determine if we got to score screen
 let hsLength = 5; //max highscore list size
 

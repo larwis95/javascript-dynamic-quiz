@@ -26,6 +26,30 @@ header strong {
     color: #569cd6;
 }
 
+ul {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    top: 30%;
+}
+
+li {
+    display: flex;
+    margin: 5px;
+}
+
+button {
+    display: flex;
+    padding: 10px;
+    color: white;
+    background-color: #2d2d2d;
+    border: 2px solid white;
+    top: 50%;
+    height: 43px;
+    width: 300px;
+
+}
+
 h1::after {
     content: "";
     width: 5px;
@@ -93,6 +117,8 @@ h1::after {
     right: -100%;
     font-size: 30px;
     padding: 5px;
+    height: auto;
+    width: auto;
 }
 
 #questiontext {
@@ -101,10 +127,20 @@ h1::after {
     top: 25%;
 }
 
+#timerh2 {
+    position: absolute;
+    font-size: 40px;
+}
+
 footer {
     display: flex;
     margin-top: 20px;
     justify-content: center;
+}
+
+#outcome {
+    position: absolute;
+    top: 20%;
 }
 
 @keyframes blink-cursor {

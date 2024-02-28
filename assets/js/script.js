@@ -6,7 +6,7 @@ let hsInitials = ""
 let timer = 60;
 
 let questionsDB = [["What scope do variables have in javascript?", "global, block", "local, block", "global, local", "all scopes"]];
-let correctDB = [];
+let correctDB = ["global, local"];
 
 
 
@@ -32,6 +32,7 @@ function startQuiz() {
 function startTimer() {
     let timerText = document.createElement("h2");
     quizContainer.appendChild(timerText);
+    timerText.setAttribute("id", "timerh2");
     timerText.textContent = timer + " second(s) left!";
     let timerInterval = setInterval(function() {
         timer--;
@@ -45,23 +46,78 @@ function startTimer() {
 };
 
 function selectQuestion() {
+    if (questionsDB.length === 0) {
+        // saveHighScore();
+        return;
+    }
     let questionArray = questionsDB[Math.floor(Math.random() * questionsDB.length)];
     let questionsRemove = questionsDB.indexOf(questionArray)
     let questionText = questionArray[0];
     questionArray.splice(0, 1)
     let questionH2 = document.createElement("h2");
+    let answerList = document.createElement("ul");
     questionH2.setAttribute("id", "questiontext");
     quizContainer.appendChild(questionH2);
+    quizContainer.appendChild(answerList);
+    answerList.appendChild
     questionH2.textContent = questionText;
     console.log(questionArray);
     for (let i = 0; i < questionArray.length; i++) {
+        let li = document.createElement("li");
         let answers = document.createElement("button");
-        quizContainer.appendChild(answers);
-        answers.value = questionArray[i];
+        answerList.appendChild(li);
+        li.appendChild(answers);
+        answers.innerHTML = questionArray[i];
 
     };
     questionsDB.splice(questionsRemove, 1);
-    console.log(questionsDB);
+    buttonHandler();
 };
+
+function buttonHandler(){
+    let answers = document.querySelectorAll("button");
+    for (let i = 0; i < answers.length; i++) {
+        answers[i].addEventListener("click", validateAnswers);
+    };
+};
+
+function validateAnswers(event) {
+    let button = event.target
+    if (correctDB.includes(button.innerHTML) === true) {
+        let correctText = document.createElement("h2");
+        quizContainer.appendChild(correctText);
+        correctText.setAttribute("id", "outcome");
+        correctText.textContent = "Correct!";
+        correctText.style.color = "green";
+        deleteOutcomeText();
+        // removeQuestion();
+    } else {
+        let incorrectText = document.createElement("h2");
+        quizContainer.appendChild(incorrectText);
+        incorrectText.setAttribute("id", "outcome");
+        incorrectText.textContent = "Incorrect!";
+        incorrectText.style.color = "red";
+        timer = timer-5
+        deleteOutcomeText();
+        // removeQuestion();
+    };
+}
+
+function deleteOutcomeText() {
+    let timeDelete = 3
+    let outcomeText = document.querySelector("#outcome")
+    let timerInterval = setInterval(function() {
+        timeDelete--;
+        if (timeDelete === 0) {
+            outcomeText.remove();
+            clearInterval(timerInterval);
+        }
+    }, 1000)
+};
+
+function removeQuestion() {
+    
+}
+
 
 playBtn.addEventListener("click", startQuiz)

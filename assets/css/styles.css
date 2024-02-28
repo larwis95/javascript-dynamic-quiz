@@ -33,6 +33,13 @@ ul {
     top: 30%;
 }
 
+ol {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    top: 30%;
+}
+
 li {
     display: flex;
     margin: 5px;

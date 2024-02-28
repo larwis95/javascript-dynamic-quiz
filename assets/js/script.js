@@ -5,8 +5,8 @@ let quizContainer = document.querySelector(".quizcontainer");
 let hsInitials = ""
 let timer = 60;
 
-let questionsDB = [["What scope do variables have in javascript?", "global, block", "local, block", "global, local", "all scopes"]];
-let correctDB = ["global, local"];
+const questionsDB = [["What scope do variables have in javascript?", "global, block", "local, block", "global, local", "all scopes"], ["What does a loop do?", "Selects all variables.", "Loops through an arrau", "Causes an infinite loop error", "Executes code multiple times"], ["What event handler handles when a button is clicked?", "submit", "click", "keydown", "change"], ["Local storage values are always stored as a ___", "string", "variable", "integer", "boolean"]];
+const correctDB = ["global, local", "Executes code multiple times", "click", "string"];
 
 
 
@@ -90,34 +90,44 @@ function validateAnswers(event) {
         correctText.textContent = "Correct!";
         correctText.style.color = "green";
         deleteOutcomeText();
-        // removeQuestion();
+        removeQuestion();
     } else {
         let incorrectText = document.createElement("h2");
         quizContainer.appendChild(incorrectText);
         incorrectText.setAttribute("id", "outcome");
         incorrectText.textContent = "Incorrect!";
         incorrectText.style.color = "red";
-        timer = timer-5
+        timer = timer - 5
         deleteOutcomeText();
-        // removeQuestion();
+        removeQuestion();
     };
 }
 
 function deleteOutcomeText() {
-    let timeDelete = 3
+    let timeDelete = 1
     let outcomeText = document.querySelector("#outcome")
     let timerInterval = setInterval(function() {
         timeDelete--;
         if (timeDelete === 0) {
             outcomeText.remove();
             clearInterval(timerInterval);
-        }
-    }, 1000)
+        };
+    }, 1000);
 };
 
 function removeQuestion() {
-    
-}
+    let questionText = document.querySelector("#questiontext");
+    let ul = document.querySelector("ul");
+    let li = document.querySelectorAll("li");
+    let buttons = document.querySelectorAll("button");
+    ul.remove();
+    questionText.remove();
+    for (let i = 0; i < li.length; i++) {
+        li[i].remove();
+        buttons[i].remove;
+    };
+    selectQuestion();
+};
 
 
 playBtn.addEventListener("click", startQuiz)

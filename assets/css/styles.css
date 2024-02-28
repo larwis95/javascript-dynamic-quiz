@@ -54,7 +54,7 @@ h1::after {
     position: relative;
 }
 
-#intialsinput {
+#initialsinput {
     display: flex;
     position: relative;
     top: 30%;
@@ -72,7 +72,7 @@ h1::after {
     border: 1px solid white;
 }
 
-.quizcontainer h2 {
+#initialsh2 {
     display: flex;
     position: absolute;
     right: 110%;
@@ -93,6 +93,12 @@ h1::after {
     right: -100%;
     font-size: 30px;
     padding: 5px;
+}
+
+#questiontext {
+    position: absolute;
+    height: 20px;
+    top: 25%;
 }
 
 footer {

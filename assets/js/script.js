@@ -2,11 +2,16 @@ let playBtn = document.querySelector("#play");
 let initialsText = document.querySelector("#initials");
 let quizContainer = document.querySelector(".quizcontainer");
 
-let hsInitials = ""
-let timer = 60;
+let hsInitials = "";
+let timer = 40;
+let correctCount = 0;
+let incorrectCount = 0;
 
-const questionsDB = [["What scope do variables have in javascript?", "global, block", "local, block", "global, local", "all scopes"], ["What does a loop do?", "Selects all variables.", "Loops through an arrau", "Causes an infinite loop error", "Executes code multiple times"], ["What event handler handles when a button is clicked?", "submit", "click", "keydown", "change"], ["Local storage values are always stored as a ___", "string", "variable", "integer", "boolean"]];
-const correctDB = ["global, local", "Executes code multiple times", "click", "string"];
+const questionsDB = [["What scope do variables have in javascript?", "global, block", "local, block", "global, local", "all scopes"], ["What does a loop do?", "Selects all variables.", "Loops through an arrau", "Causes an infinite loop error", "Executes code multiple times"], ["What event handler handles when a button is clicked?", "submit", "click", "keydown", "change"], ["Local storage values are always stored as a(n) ___", "string", "variable", "integer", "boolean"], ["console.log will:", "log errors in your code.", "print something to the console", "tell the console to logout", "log all variables to console"]];
+
+let questionAmount = questionsDB.length
+
+const correctDB = ["global, local", "Executes code multiple times", "click", "string", "print something to the console"];
 
 
 
@@ -29,6 +34,30 @@ function startQuiz() {
     selectQuestion();
 };
 
+function endQuiz() {
+    let questionText = document.querySelector("#questiontext");
+    let ul = document.querySelector("ul");
+    let li = document.querySelectorAll("li");
+    let buttons = document.querySelectorAll("button");
+    ul.remove();
+    questionText.remove();
+    for (let i = 0; i < li.length; i++) {
+        li[i].remove();
+        buttons[i].remove;
+    };
+    let gameoverText = document.createElement("h2");
+    let playAgainBtn = document.createElement("button")
+    gameoverText.setAttribute("id", "questiontext");
+    quizContainer.appendChild(gameoverText);
+    quizContainer.appendChild(playAgainBtn);
+    gameoverText.textContent = "Game Over! You ran out of time. Play Again?";
+    playAgainBtn.innerHTML = "Play Again";
+    playAgainBtn.addEventListener("click", function() {
+        location.reload();
+        return false;
+    });
+};
+
 function startTimer() {
     let timerText = document.createElement("h2");
     quizContainer.appendChild(timerText);
@@ -36,20 +65,23 @@ function startTimer() {
     timerText.textContent = timer + " second(s) left!";
     let timerInterval = setInterval(function() {
         timer--;
-        timerText.textContent = timer + " second(2) left!";
+        timerText.textContent = timer + " second(s) left!";
         if (timer === 0) {
             timerText.remove();
+            endQuiz();
             clearInterval(timerInterval);
-            // endQuiz();
-        }
+        };
     }, 1000);
 };
 
 function selectQuestion() {
     if (questionsDB.length === 0) {
-        // saveHighScore();
+        timerText.remove();
+        saveHighScore();
         return;
-    }
+    };
+    console.log(questionsDB.length)
+    console.log(timer)
     let questionArray = questionsDB[Math.floor(Math.random() * questionsDB.length)];
     let questionsRemove = questionsDB.indexOf(questionArray)
     let questionText = questionArray[0];
@@ -89,6 +121,7 @@ function validateAnswers(event) {
         correctText.setAttribute("id", "outcome");
         correctText.textContent = "Correct!";
         correctText.style.color = "green";
+        correctCount = correctCount++
         deleteOutcomeText();
         removeQuestion();
     } else {
@@ -98,6 +131,7 @@ function validateAnswers(event) {
         incorrectText.textContent = "Incorrect!";
         incorrectText.style.color = "red";
         timer = timer - 5
+        incorrectCount = incorrectCount++
         deleteOutcomeText();
         removeQuestion();
     };

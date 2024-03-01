@@ -173,6 +173,11 @@ h1::after {
     top: 100px;
 }
 
+#viewBtn {
+    position: relative;
+    top: -20%;
+}
+
 footer {
     display: flex;
     margin-top: 20px;

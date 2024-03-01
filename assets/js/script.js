@@ -1,6 +1,7 @@
 let playBtn = document.querySelector("#play");
 let initialsText = document.querySelector("#initials");
 let quizContainer = document.querySelector(".quizcontainer");
+let viewBtn = document.querySelector("#viewBtn");
 
 let hsInitials = ""; //intials storage string
 let timer = 100; //starting time for timer
@@ -146,6 +147,7 @@ function clearScores(event) {
     btn.remove();
 }
 
+
 function startTimer() {  //timer function
     let timerText = document.createElement("h2");
     quizContainer.appendChild(timerText);
@@ -164,6 +166,37 @@ function startTimer() {  //timer function
         };
     }, 1000);
 };
+
+function handleViewBtn() {
+    let initialsH2 = document.querySelector("#initialsh2");
+    let initialDiv = document.querySelector("#initialsinput");
+    let startParagraph = document.querySelector("p")
+    let playAgain = document.createElement("button");
+    let scoreUL = document.createElement("ul");
+    playAgain.setAttribute("id", "playagain");
+    playAgain.textContent = "Back to Main"
+    startParagraph.remove(); 
+    playBtn.remove(); 
+    initialsText.remove(); 
+    initialsH2.remove(); 
+    initialDiv.remove();
+    viewBtn.remove();
+    quizContainer.appendChild(playAgain);
+    quizContainer.appendChild(scoreUL);
+    for (let i = 0; i < scores.length; i++) {
+        if (i < hsLength) { //checks to make sure our hs length is < then max length
+            let initials = scores[i].name;
+            let score = scores[i].time;
+            let li = document.createElement("li");
+            li.textContent = "Intials: " + initials + " Score: " + score;
+            scoreUL.appendChild(li);
+        };
+    };
+    playAgain.addEventListener("click", function() {
+        location.reload();
+        return false;
+    });
+}
 
 function selectQuestion() {
     if (questionsDB.length === 0) { //checks to make sure questions are left
@@ -257,3 +290,4 @@ function removeQuestion() {
 
 init();
 playBtn.addEventListener("click", startQuiz) //event listener for our play button on click
+viewBtn.addEventListener("click", handleViewBtn);

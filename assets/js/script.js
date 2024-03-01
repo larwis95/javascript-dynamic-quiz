@@ -35,7 +35,8 @@ function startQuiz() { //starts the quiz when intials are put into textbox and p
     hsInitials = initialsText.value
     let initialsH2 = document.querySelector("#initialsh2");
     let initialDiv = document.querySelector("#initialsinput");
-    let startParagraph = quizContainer.children[0];
+    let startParagraph = document.querySelector("p");
+    viewBtn.remove();
     startParagraph.remove();  //removes our starting <p>
     playBtn.remove(); //removes the play button
     initialsText.remove(); //removes our intials input
